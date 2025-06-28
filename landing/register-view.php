@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
 
     // Simpan ke tabel users
-    $stmt2 = $koneksi->prepare("INSERT INTO users (username, email, password, role, status_aktif, id_anggota, created_at) VALUES (?, ?, ?, 'anggota', 'aktif', ?, NOW())");
+    $stmt2 = $koneksi->prepare("INSERT INTO users (username, email, password, role, status_aktif, id_anggota, created_at) VALUES (?, ?, ?, 'anggota', 'pending', ?, NOW())");
     $stmt2->bind_param("sssi", $username, $email, $password, $anggota_id);
     $stmt2->execute();
     $stmt2->close();

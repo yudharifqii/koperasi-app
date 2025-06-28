@@ -21,47 +21,49 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <?php if ($_SESSION['role'] != 'anggota') : ?>
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-          Data
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-              aria-expanded="true" aria-controls="collapseTwo">
-              <i class="fas fa-fw fa-cog"></i>
-              <span>Master Data</span>
-          </a>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Pilih Data:</h6>
-                  <a class="collapse-item" href="?page=anggota">Anggota</a>
-                  <a class="collapse-item" href="?page=pengguna">Pengguna</a>
-              </div>
+          <!-- Heading -->
+          <div class="sidebar-heading">
+              Data
           </div>
-      </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-              aria-expanded="true" aria-controls="collapseUtilities">
-              <i class="fas fa-fw fa-wrench"></i>
-              <span>Kas</span>
-          </a>
-          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-              data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Pilih Menu:</h6>
-                  <a class="collapse-item" href="?page=pemasukan">Pemasukan</a>
-                  <a class="collapse-item" href="?page=pengeluaran">Pengeluaran</a>
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                  aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Master Data</span>
+              </a>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Pilih Data:</h6>
+                      <a class="collapse-item" href="?page=anggota">Anggota</a>
+                      <a class="collapse-item" href="?page=pengguna">Pengguna</a>
+                  </div>
               </div>
-          </div>
-      </li>
+          </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+          <!-- Nav Item - Utilities Collapse Menu -->
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                  aria-expanded="true" aria-controls="collapseUtilities">
+                  <i class="fas fa-fw fa-wrench"></i>
+                  <span>Kas</span>
+              </a>
+              <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                  data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Pilih Menu:</h6>
+                      <a class="collapse-item" href="?page=pemasukan">Pemasukan</a>
+                      <a class="collapse-item" href="?page=pengeluaran">Pengeluaran</a>
+                  </div>
+              </div>
+          </li>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+      <?php endif; ?>
 
       <!-- Heading -->
       <div class="sidebar-heading">
@@ -101,26 +103,30 @@
               </div>
           </div>
       </li>
-      <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true"
-              aria-controls="laporan">
-              <i class="fas fa-fw fa-folder"></i>
-              <span>Laporan</span>
-          </a>
-          <div id="laporan" class="collapse" aria-labelledby="headingPages"
-              data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Pilih Menu:</h6>
-                  <a class="collapse-item" href="?page=laporananggota">Laporan Anggota</a>
-                  <a class="collapse-item" href="?page=laporanpemasukan">Laporan Pemasukan</a>
-                  <a class="collapse-item" href="?page=laporanpengeluaran">Laporan Pengeluaran</a>
-                  <a class="collapse-item" href="?page=laporansimpanan">Laporan Simpanan</a>
-                  <a class="collapse-item" href="?page=laporanpenarikan">Laporan Penarikan Simpanan</a>
-                  <a class="collapse-item" href="?page=laporanpeminjaman">Laporan Peminjaman</a>
-                  <a class="collapse-item" href="?page=laporanangsuran">Laporan Angsuran</a>
+
+      <?php if ($_SESSION['role'] != 'anggota') : ?>
+          <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true"
+                  aria-controls="laporan">
+                  <i class="fas fa-fw fa-folder"></i>
+                  <span>Laporan</span>
+              </a>
+              <div id="laporan" class="collapse" aria-labelledby="headingPages"
+                  data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Pilih Menu:</h6>
+                      <a class="collapse-item" href="?page=laporananggota">Laporan Anggota</a>
+                      <a class="collapse-item" href="?page=laporanpemasukan">Laporan Pemasukan</a>
+                      <a class="collapse-item" href="?page=laporanpengeluaran">Laporan Pengeluaran</a>
+                      <a class="collapse-item" href="?page=laporansimpanan">Laporan Simpanan</a>
+                      <a class="collapse-item" href="?page=laporanpenarikan">Laporan Penarikan Simpanan</a>
+                      <a class="collapse-item" href="?page=laporanpeminjaman">Laporan Peminjaman</a>
+                      <a class="collapse-item" href="?page=laporanangsuran">Laporan Angsuran</a>
+                  </div>
               </div>
-          </div>
-      </li>
+          </li>
+      <?php endif; ?>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

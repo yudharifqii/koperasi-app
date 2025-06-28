@@ -1,37 +1,53 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id_user = $_GET['id'];
+    $query = $koneksi->query("select u.*, p.* from users as u inner join profil_pengguna as p on u.id_user = p.id_user WHERE u.id_user='$id_user'");
+    $pengguna = $query->fetch_assoc();
     $nama = $_POST['nama'];
     $alamat = $_POST['alamat'];
     $no_hp = $_POST['no_hp'];
     $role = $_POST['role'];
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $status_aktif = $_POST['status'];
 
     // Upload foto
     $foto_name = '';
     if ($_FILES['foto']['name'] != '') {
+        $file_foto = $pengguna['foto']; //ambil foto pengguna
+        if (file_exists('assets/uploads/' . $file_foto)) {
+            unlink('assets/uploads/' . $file_foto);
+        }
         $ext = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
         $foto_name = 'foto_' . time() . '.' . $ext;
         move_uploaded_file($_FILES['foto']['tmp_name'], 'assets/uploads/' . $foto_name);
+    } else {
+        $foto_name = $pengguna['foto'];
     }
 
     // Simpan ke tabel users
-    $stmt2 = $koneksi->prepare("INSERT INTO users (username, email, password, role, status_aktif, id_anggota, created_at) VALUES (?, ?, ?, ?, 'aktif', null, NOW())");
-    $stmt2->bind_param("ssss", $username, $email, $password, $role);
+    $stmt2 = $koneksi->prepare("UPDATE users set username=?, email=?, role=?, status_aktif=? WHERE id_user=?");
+    $stmt2->bind_param("sssss", $username, $email, $role, $status_aktif, $id_user);
     $stmt2->execute();
-    $user_id = $stmt2->insert_id;
     $stmt2->close();
 
     // Simpan ke tabel anggota
-    $stmt = $koneksi->prepare("INSERT INTO profil_pengguna VALUES (null, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $user_id, $nama, $no_hp, $alamat, $foto_name);
+    $stmt = $koneksi->prepare("UPDATE profil_pengguna SET nama_lengkap=?, no_hp=?, alamat=?, foto=? WHERE id_user=?");
+    $stmt->bind_param("sssss", $nama, $no_hp, $alamat, $foto_name, $id_user);
     $stmt->execute();
     $stmt->close();
 
+    if ($_POST['password'] != '') {
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $stmt3 = $koneksi->prepare('UPDATE users SET password=? WHERE id_user=?');
+        $stmt3->bind_param("ss", $password, $id_user);
+        $stmt3->execute();
+        $stmt3->close();
+    }
 
 
-    echo "<script>alert('Tambah Akun pengguna, Berhasil Dilakukan!'); window.location = '?page=pengguna';</script>";
+
+    echo "<script>alert('Perbaharui akun pengguna berhasil dilakukan!'); window.location = '?page=pengguna';</script>";
 }
 ?>
 <div class="container-fluid">
@@ -80,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input type="email" name="email" class="form-control" required value="<?= $pengguna['email'] ?>">
                                 <label class="mt-2">Password</label>
                                 <input type="password" name="password" class="form-control">
-                                <label class="mt-2">Upload Foto</label>
+                                <label class="mt-2">Upload Foto</label> <span class="text-danger">(Opsional)</span>
                                 <input type="file" name="foto" class="form-control">
                                 <label class="mt-2">Status Aktif</label>
                                 <select name="status" class="form-control" required>

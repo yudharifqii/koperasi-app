@@ -25,4 +25,17 @@ if ($page == "dashboard") {
 } else if ($page == "penggunaedit") {
     include "pengguna/pengguna-edit.php";
 }
+//anggota
+else if ($page == "anggota") {
+    include "anggota/anggota-view.php";
+} else if ($page == "anggotadetail") {
+    include "anggota/anggota-detail.php";
+}
+
+//simpanan
+else if ($page == "simpanan") {
+    include "simpanan/simpanan-view.php";
+} else if ($page == "simpanandetail") {
+    include "simpanan/simpanan-detail.php";
+}
 include "template/footer.php";

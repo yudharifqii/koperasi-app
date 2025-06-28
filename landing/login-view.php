@@ -11,17 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $res = $stmt->get_result();
     if ($res->num_rows > 0) {
         $user = $res->fetch_assoc();
-        if ($user['status_aktif'] != 'aktif') {
-            $error = "Akun tidak aktif.";
-        } elseif (password_verify($password, $user['password'])) {
-            // Login berhasil
-            $_SESSION['id_user'] = $user['id_user'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role']; // Redirect berdasarkan role
-            header("Location: ../index.php?page=dashboard.php");
-            exit;
+        if ($user['status_aktif'] == 'pending') {
+            $error = "Akun anda belum diverifikasi admin. Silakan hubungi petugas.";
+        } else if ($user['status_aktif'] == 'nonaktif') {
+            $error = "Akun anda telah dinonaktifkan. Silakan hubungi petugas.";
         } else {
-            $error = "Password salah.";
+            if (password_verify($password, $user['password'])) {
+                // Login berhasil
+                $_SESSION['id_user'] = $user['id_user'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role']; // Redirect berdasarkan role
+                header("Location: ../index.php?page=dashboard.php");
+                exit;
+            } else {
+                $error = "Password salah.";
+            }
         }
     } else {
         $error = "User tidak ditemukan.";
