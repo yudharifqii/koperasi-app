@@ -35,7 +35,15 @@ else if ($page == "anggota") {
 //simpanan
 else if ($page == "simpanan") {
     include "simpanan/simpanan-view.php";
+} else if ($page == "simpanancreate") {
+    if ($_SESSION['role'] == 'anggota') {
+        include "simpanan/simpanan-create-anggota.php";
+    }
 } else if ($page == "simpanandetail") {
     include "simpanan/simpanan-detail.php";
+} else {
+    include "simpanan/simpanan-create.php";
 }
+
+
 include "template/footer.php";

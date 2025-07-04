@@ -40,6 +40,8 @@
                                 $status = "<span class='badge badge-success'>Acc</span>";
                                 if ($row['status_verifikasi'] == 'tolak') {
                                     $status = "<span class='badge badge-danger'>Ditolak</span>";
+                                } else if ($row['status_verifikasi'] == 'pending') {
+                                    $status = "<span class='badge badge-warning'>Pending</span>";
                                 }
                             ?>
                                 <tr>
